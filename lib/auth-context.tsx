@@ -40,54 +40,40 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setLoading(false)
   }, [])
 
-  // Update the login function to only accept the specific admin credentials
-  // Replace the current login function with this implementation:
-
+  // Login function - modified to be more permissive for demo
   const login = async (email: string, password: string) => {
     setLoading(true)
     try {
       // In a real app, this would be an API call
       await new Promise((resolve) => setTimeout(resolve, 1000)) // Simulate API delay
 
-      // Only allow the specific admin credentials
-      if (email === "admin@mtncerts.com" && password === "Admin1234") {
-        // Create admin user object
-        const loggedInUser = {
-          id: "admin-001",
-          name: "Admin User",
-          email: email,
-          role: "admin" as const,
-        }
+      // For demo purposes, determine role based on email pattern
+      const role: "admin" | "recipient" = email.includes("admin") ? "admin" : "recipient"
 
-        console.log("Admin login successful:", loggedInUser)
-        setUser(loggedInUser)
-        localStorage.setItem("mtn_user", JSON.stringify(loggedInUser))
-        setCookie("mtn_auth", "authenticated", 30)
-        return true
+      // Create a user object
+      const loggedInUser = {
+        id: Math.random().toString(36).substring(2, 9),
+        name: email
+          .split("@")[0]
+          .replace(/[.+_-]/g, " ")
+          .replace(/\b\w/g, (l) => l.toUpperCase()),
+        email: email,
+        role: role,
       }
 
-      // For regular users (if needed)
-      else if (!email.includes("admin")) {
-        const loggedInUser = {
-          id: Math.random().toString(36).substring(2, 9),
-          name: email
-            .split("@")[0]
-            .replace(/[.+_-]/g, " ")
-            .replace(/\b\w/g, (l) => l.toUpperCase()),
-          email: email,
-          role: "recipient" as const,
-        }
+      // Log the user object for debugging
+      console.log("Logging in user:", loggedInUser)
 
-        console.log("Recipient login successful:", loggedInUser)
-        setUser(loggedInUser)
-        localStorage.setItem("mtn_user", JSON.stringify(loggedInUser))
-        setCookie("mtn_auth", "authenticated", 30)
-        return true
-      }
+      setUser(loggedInUser)
 
-      // Invalid credentials
-      console.error("Login failed: Invalid credentials")
-      return false
+      // Make sure we're storing the user object correctly
+      localStorage.setItem("mtn_user", JSON.stringify(loggedInUser))
+	    setCookie("mtn_user", JSON.stringify(loggedInUser), 1)
+
+      // Set auth cookie with a longer expiration
+      setCookie("mtn_auth", "authenticated", 30)
+
+      return true
     } catch (error) {
       console.error("Login error:", error)
       return false
