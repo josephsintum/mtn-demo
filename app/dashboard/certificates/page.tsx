@@ -131,7 +131,7 @@ export default function MyCertificatesPage() {
               <Card key={certificate.id} className="bg-mtn-gray border-mtn-gray overflow-hidden">
                 <div className="aspect-[4/3] relative bg-mtn-black">
                   <Image
-                    src="/placeholder.svg?height=300&width=400"
+                    src="/mtn-logo.png?height=300&width=400"
                     alt={`Certificate: ${certificate.program}`}
                     width={400}
                     height={300}

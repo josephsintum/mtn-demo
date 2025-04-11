@@ -31,7 +31,7 @@ const Header = () => {
         {/* Logo Section */}
         <Link href="/" className="flex items-center gap-2">
           <Image
-            src="/placeholder.svg?height=60&width=180"
+            src="/mtn-logo.png?height=60&width=180"
             alt="MTN Certificates"
             width={180}
             height={60}
@@ -147,7 +147,7 @@ const Header = () => {
         <div className="flex flex-col items-center mb-4">
           <Link href="/" className="flex items-center">
             <Image
-              src="/placeholder.svg?height=60&width=180"
+              src="/mtn-logo.png?height=60&width=180"
               alt="MTN Certificates"
               width={150}
               height={50}
