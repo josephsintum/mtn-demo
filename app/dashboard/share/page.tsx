@@ -178,7 +178,7 @@ export default function CertificateSharingPage() {
               <div className="aspect-[4/3] relative bg-mtn-black rounded-lg overflow-hidden">
                 {selectedCertificateData ? (
                   <Image
-                    src="/mtn-logo.png?height=300&width=400"
+                    src="/mtn-logo.png"
                     alt={`Certificate: ${selectedCertificateData.program}`}
                     width={400}
                     height={300}
